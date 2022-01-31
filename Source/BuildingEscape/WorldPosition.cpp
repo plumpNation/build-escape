@@ -20,7 +20,10 @@ void UWorldPosition::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UE_LOG(LogTemp, Warning, TEXT("Something wicked this way comes"));
+	UE_LOG(LogTemp, Log, TEXT("This is a log log"));
+	UE_LOG(LogTemp, Display, TEXT("This is a display log"));
+	UE_LOG(LogTemp, Warning, TEXT("This is a warning log"));
+	UE_LOG(LogTemp, Error, TEXT("This is an error log"));
 
 }
 
