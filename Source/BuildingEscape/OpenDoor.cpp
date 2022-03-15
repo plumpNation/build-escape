@@ -1,6 +1,7 @@
 
 
-
+#include "Engine/World.h"
+#include "GameFramework/PlayerController.h"
 #include "OpenDoor.h"
 #include "GameFramework/Actor.h"
 
@@ -25,6 +26,26 @@ void UOpenDoor::BeginPlay()
 	currentYaw = initialYaw;
 
 	targetYaw += initialYaw;
+
+	if (!pressurePlate) {
+		UE_LOG(LogTemp, Error, TEXT("Actor %s"), *GetOwner()->GetName());
+	}
+
+	actorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
+}
+
+// Called every frame
+void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	if (pressurePlate && pressurePlate->IsOverlappingActor(actorThatOpens)) {
+		OpenDoor(DeltaTime);
+	}
+
+	if (pressurePlate && !pressurePlate->IsOverlappingActor(actorThatOpens)) {
+		CloseDoor(DeltaTime);
+	}
 }
 
 void UOpenDoor::OpenDoor(float DeltaTime)
@@ -37,13 +58,12 @@ void UOpenDoor::OpenDoor(float DeltaTime)
 	GetOwner()->SetActorRotation(doorRotation);
 }
 
-// Called every frame
-void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UOpenDoor::CloseDoor(float DeltaTime)
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	FRotator doorRotation{ 0.f, currentYaw, 0.f };
 
-	if (pressurePlate->IsOverlappingActor(actorThatOpens)) {
-		OpenDoor(DeltaTime);
-	}
+	currentYaw = FMath::Lerp(currentYaw, 0.f, DeltaTime * 1.f);
+	doorRotation.Yaw = currentYaw;
+
+	GetOwner()->SetActorRotation(doorRotation);
 }
-

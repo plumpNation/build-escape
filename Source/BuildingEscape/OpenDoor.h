@@ -27,6 +27,7 @@ class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
 
 	private:
 		void OpenDoor(float DeltaTime);
+		void CloseDoor(float DeltaTime);
 
 		float initialYaw;
 		UPROPERTY(EditAnywhere)
@@ -36,6 +37,5 @@ class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
 		UPROPERTY(EditAnywhere)
 		ATriggerVolume* pressurePlate;
 
-		UPROPERTY(EditAnywhere)
 		AActor* actorThatOpens;
 };
