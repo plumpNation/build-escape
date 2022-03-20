@@ -38,4 +38,7 @@ class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
 		ATriggerVolume* pressurePlate;
 
 		AActor* actorThatOpens;
+
+		float doorLastOpened;
+		float doorCloseDelay = 2.f;
 };
