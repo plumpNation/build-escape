@@ -28,7 +28,7 @@ void UOpenDoor::BeginPlay()
 	openAngle += initialYaw;
 
 	if (!pressurePlate) {
-		UE_LOG(LogTemp, Error, TEXT("Actor %s"), *GetOwner()->GetName());
+		UE_LOG(LogTemp, Error, TEXT("Actor %s not assigned with a pressure plate"), *GetOwner()->GetName());
 	}
 
 	actorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
