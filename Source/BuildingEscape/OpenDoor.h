@@ -31,7 +31,7 @@ class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
 
 		float initialYaw;
 		UPROPERTY(EditAnywhere)
-		float targetYaw = 90.f;
+		float openAngle = 90.f;
 		float currentYaw;
 
 		UPROPERTY(EditAnywhere)
@@ -39,6 +39,12 @@ class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
 
 		AActor* actorThatOpens;
 
-		float doorLastOpened;
+		float doorLastOpened = 0.f;
+
+		UPROPERTY(EditAnywhere)
 		float doorCloseDelay = 2.f;
+		UPROPERTY(EditAnywhere)
+		float doorCloseSpeed = 2.f;
+		UPROPERTY(EditAnywhere)
+		float doorOpenSpeed = 1.f;
 };
